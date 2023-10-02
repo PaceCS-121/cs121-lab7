@@ -15,3 +15,11 @@ def test_check_guess(capsys):
     assert guess_the_number2.check_guess(10, 9) == False
     captured = capsys.readouterr()
     assert "Too high!" in captured.out or "Too low!" in captured.out
+
+def test_play(capsys, monkeypatch):
+    inputs = iter(["10", "20", "30", "40", "50", "60", "70", "80", "90", "100"])
+    monkeypatch.setattr('builtins.input', lambda _: next(inputs))
+    guess_the_number2.main()
+    captured = capsys.readouterr()
+    assert re.search(r"congrat|win|sorry|lose", captured.out, re.IGNORECASE)
+    assert re.search(r"\d+ guesses", captured.out, re.IGNORECASE)
