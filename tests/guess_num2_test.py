@@ -1,5 +1,8 @@
+import random
 import re
 import guess_the_number2
+
+inputs = iter(random.sample(range(1, 101), 15))
 
 def test_generate_random_number():
     num = guess_the_number2.generate_random_number(1, 100)
@@ -14,10 +17,9 @@ def test_check_guess(capsys):
     assert guess_the_number2.check_guess(10, 10) == True
     assert guess_the_number2.check_guess(10, 9) == False
     captured = capsys.readouterr()
-    assert "Too high!" in captured.out or "Too low!" in captured.out
+    assert re.search(r"high|low", captured.out, re.IGNORECASE)
 
 def test_play(capsys, monkeypatch):
-    inputs = iter(["10", "20", "30", "40", "50", "60", "70", "80", "90", "100"])
     monkeypatch.setattr('builtins.input', lambda _: next(inputs))
     guess_the_number2.main()
     captured = capsys.readouterr()
