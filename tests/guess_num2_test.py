@@ -2,7 +2,7 @@ import random
 import re
 import guess_the_number2
 
-inputs = iter(random.sample(range(1, 101), 15))
+inputs = iter(random.sample(range(1, 101), 50))
 
 def test_generate_random_number():
     num = guess_the_number2.generate_random_number(1, 100)
