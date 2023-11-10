@@ -14,8 +14,8 @@ def test_get_player_choice(capsys, monkeypatch):
         assert rock_paper_scissors.get_player_choice() == i
 
 def test_get_player_choice_invalid(capsys, monkeypatch):
-    inputs = "blue"
-    monkeypatch.setattr('builtins.input', lambda _: inputs)
+    inputs = iter(["blue", "rock"])
+    monkeypatch.setattr('builtins.input', lambda _: next(inputs))
     assert rock_paper_scissors.get_player_choice() == False
 
 def test_get_computer_choice():
